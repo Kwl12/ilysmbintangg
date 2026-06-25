@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>🤍 untuk bintang 🤍</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: radial-gradient(circle at 30% 40%, #ffb6c1, #ffe4ec 80%);
+            font-family: 'quicksand', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        .container {
+            max-width: 520px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-radius: 60px;
+            padding: 2.5rem 2.2rem;
+            box-shadow: 0 20px 50px rgba(255, 105, 180, 0.25);
+            border: 1px solid rgba(255, 200, 210, 0.5);
+            position: relative;
+            z-index: 10;
+            min-height: 480px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+        .page { display: none; flex-direction: column; align-items: center; gap: 1.8rem; width: 100%; animation: fadein 0.5s ease; }
+        .page.active { display: flex; }
+        @keyframes fadein {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .title {
+            font-family: 'playfair display', serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #b13e5c;
+            line-height: 1.4;
+        }
+        .btn-group {
+            display: flex;
+            gap: 1.8rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin: 0.5rem 0;
+        }
+        .btn {
+            background: #e67b9e;
+            border: none;
+            padding: 0.9rem 2.4rem;
+            border-radius: 60px;
+            font-family: 'quicksand', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+        }
+        .btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+        .btn-pink { background: #d45a7a; }
+        .btn-outline { background: transparent; border: 2px solid #e67b9e; color: #b13e5c; }
+
+        .envelope-wrapper {
+            position: relative;
+            width: 260px;
+            height: 190px;
+            margin: 0.5rem auto;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .envelope-wrapper:hover { transform: scale(1.03); }
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #f8c8d8;
+            border-radius: 20px 20px 0 0;
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            transition: 0.4s ease;
+            z-index: 3;
+            border: 2px solid #e26a8c;
+            border-bottom: none;
+        }
+        .envelope-flap.open { clip-path: polygon(0 0, 50% 0, 100% 0); }
+        .envelope-body {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70%;
+            background: #f8d0de;
+            border-radius: 0 0 20px 20px;
+            border: 2px solid #e26a8c;
+            border-top: none;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #b13e5c;
+            font-weight: 600;
+            font-family: 'playfair display', serif;
+        }
+        .letter-paper {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%) scale(0.8) rotate(-2deg);
+            width: 94%;
+            height: 0;
+            background: #fff9f7;
+            border-radius: 24px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            z-index: 2;
+            transition: height 0.6s cubic-bezier(0.2, 0.9, 0.3, 1.2), transform 0.4s ease;
+            overflow: hidden;
+            border: 1px solid #ffd0db;
+            padding: 0 22px;
+        }
+        .letter-paper.open {
+            height: 420px;
+            transform: translateX(-50%) scale(1) rotate(0deg);
+            overflow-y: auto;
+            padding: 24px 22px;
+        }
+        .letter-paper::-webkit-scrollbar { width: 5px; }
+        .letter-paper::-webkit-scrollbar-thumb { background: #e26a8c; border-radius: 10px; }
+        .letter-paper p {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: #b04b6d;
+            text-align: left;
+            margin-bottom: 1rem;
+        }
+        .letter-paper .signature {
+            font-family: 'playfair display', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: #c45d7c;
+            margin-top: 0.5rem;
+        }
+        .letter-paper .love-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #b13e5c;
+            margin-top: 0.5rem;
+        }
+
+        .star-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .star { position: absolute; color: rgba(255, 255, 255, 0.35); font-size: 1rem; animation: floatstar 12s infinite linear; }
+        @keyframes floatstar {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.7; }
+            80% { opacity: 0.7; }
+            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+        }
+        @media (max-width: 480px) {
+            .container { padding: 1.5rem 1rem; }
+            .title { font-size: 1.6rem; }
+            .envelope-wrapper { width: 200px; height: 150px; }
+            .letter-paper.open { height: 340px; padding: 16px; }
+            .letter-paper p { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="star-bg" id="starBg"></div>
+
+<div class="container" id="appContainer">
+    <!-- halaman 1 -->
+    <div class="page active" id="page1">
+        <div class="title">eitsss kamu yang namanya bintangg yah</div>
+        <div class="btn-group">
+            <button class="btn btn-pink" id="ya1">iyaa</button>
+            <button class="btn btn-outline" id="bukan1">bukan</button>
+        </div>
+    </div>
+
+    <!-- halaman 2 -->
+    <div class="page" id="page2">
+        <div class="title">ehh kalo kamu bintang berarti kamu suka banget yahh warna pink?</div>
+        <div class="btn-group">
+            <button class="btn btn-pink" id="suka2">aku suka warna pink</button>
+            <button class="btn btn-outline" id="tidak2">tidak suka</button>
+        </div>
+    </div>
+
+    <!-- halaman 3: amplop -->
+    <div class="page" id="page3">
+        <div class="title">kaloo kamu suka warna pink cobaa dehh pencet amplop ini</div>
+        <div class="envelope-wrapper" id="envelopeWrapper">
+            <div class="envelope-flap" id="envelopeFlap"></div>
+            <div class="envelope-body">✉️</div>
+            <div class="letter-paper" id="letterPaper">
+                <p>good night bintangg, maafin aku yaa kalau hari ini aku kurang peka sama kamu. aku tau kamu lagi day one dan perut kamu lagi sakit banget, tapi aku malah masih bisa bikin salah ke kamu. aku minta maaf banget kee kamuu,aku harap kamu cepet baikan dan rasa sakitnya ilang. jangan lupa minum air putih yang banyak, kompres perut kamu pake air hangat, dan tidur yang cukup. kamu kuat kok, aku yakin kamu bisa lewatin ini. besok aku janji bakal lebih baik lagi.</p>
+                <p>good nightt, bintangg, aku sayang kamu, cepet sembuh yaa aku tahu hari ini pasti berat banget buat kamu. apalagi kamu harus nahan sakit sambil tetap baik sama aku. dan aku malah bikin kamu tambah sedih. maafin aku yaa, bintang.</p>
+                <p>aku hanya ingin kamu tahu kalau aku selalu ada buat kamu, dalam keadaan apapun, semoga besok pagi kamu bangun dengan perasaan yang lebih baikk dan senyum yang lebar yahh. aku nggak akan berhenti mendoakan yang terbaik buat kamu bintang. mimpii indahh yaa.</p>
+                <div class="signature">dari sandy, buat bintang 🤍</div>
+                <div class="love-text">i love u bintangg 🤍</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // navigasi halaman
+    const page1 = document.getElementById('page1');
+    const page2 = document.getElementById('page2');
+    const page3 = document.getElementById('page3');
+
+    document.getElementById('ya1').addEventListener('click', () => {
+        page1.classList.remove('active');
+        page2.classList.add('active');
+    });
+    document.getElementById('bukan1').addEventListener('click', () => {
+        alert('eh beneran kamu bukan bintang? coba refresh yaa 🤍');
+    });
+
+    document.getElementById('suka2').addEventListener('click', () => {
+        page2.classList.remove('active');
+        page3.classList.add('active');
+    });
+    document.getElementById('tidak2').addEventListener('click', () => {
+        alert('tapi kamu tetaplah bintang yang aku sayang 🤍');
+    });
+
+    // amplop + kertas
+    const envelopeWrapper = document.getElementById('envelopeWrapper');
+    const flap = document.getElementById('envelopeFlap');
+    const paper = document.getElementById('letterPaper');
+    let isOpen = false;
+
+    envelopeWrapper.addEventListener('click', () => {
+        if (!isOpen) {
+            flap.classList.add('open');
+            paper.classList.add('open');
+            isOpen = true;
+        }
+    });
+</script>
+</body>
+</html>
